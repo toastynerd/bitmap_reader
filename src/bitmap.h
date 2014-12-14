@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <sys/types.h>
+#include "palette.h"
+#include "pixel_map.h"
 
 #define RB_BI_RGB            0
 #define RB_BI_RLE8           1
@@ -39,12 +41,14 @@ struct bitmap_infoheader {
 struct bitmap {
 	struct bitmap_fileheader fileheader;
 	struct bitmap_infoheader infoheader;
-	char **buffer;
+	struct palette palette;
+	struct pixel_map pixel_map;
 };
 
 int read_fileheader(int fd, struct bitmap* bitmap);
 int read_infoheader(int fd, struct bitmap* bitmap);
 int read_v4infoheader(int fd, struct bitmap* bitmap);
 int read_bitmap(int fd, struct bitmap* bitmap);
+
 void print_bitmap_header(struct bitmap* bitmap);
 void print_v4bitmap(struct bitmap* bitmap);

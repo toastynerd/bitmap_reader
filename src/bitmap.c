@@ -38,6 +38,13 @@ int read_bitmap(int fd, struct bitmap *bitmap)
 		return -1;
 	if (read_infoheader(fd, bitmap) != 40)
 		return -1;
+	bitmap->palette.size = 0;
+	if (read_palette(fd, &bitmap->palette, (int)bitmap->infoheader.color_palette) != bitmap->infoheader.color_palette) 
+		return -1;
+
+	bitmap->pixel_map.size = 0;
+	if (read_pixel_map(fd, &(bitmap->pixel_map), bitmap->infoheader.width, bitmap->infoheader.height, bitmap->fileheader.size - bitmap->fileheader.offset) != bitmap->infoheader.width * bitmap->infoheader.width)
+		return -1;
 	return 0;
 }
 
