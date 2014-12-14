@@ -27,5 +27,6 @@ int main(int argc, char **argv)
 	read_bitmap(fd, &bitmap);
 
 	print_bitmap_header(&bitmap);
+	print_palette(&bitmap.palette);
 	return 0;
 }

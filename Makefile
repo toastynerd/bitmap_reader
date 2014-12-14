@@ -2,8 +2,8 @@
 
 all: bitmap_reader
 
-bitmap_reader: src/bitmap.o src/main.o
+bitmap_reader: src/bitmap.o src/main.o src/palette.o src/pixel_map.o
 	mkdir -p bin
-	gcc src/bitmap.o src/main.o -o bin/bitmap_reader
+	gcc src/pixel_map.o src/bitmap.o src/main.o src/palette.o -o bin/bitmap_reader
 clean:
-	rm -f bin/bitmap_reader src/main.o src/bitmap.o
+	rm -f bin/bitmap_reader src/main.o src/bitmap.o src/palette.o src/pixel_map.o
