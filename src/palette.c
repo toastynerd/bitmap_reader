@@ -26,6 +26,7 @@ void palette_push_color(struct palette* palette, struct palette_color* color)
 int read_palette(int fd, struct palette* palette, int count)
 {
 	int i;
+	palette->data_store = malloc(count * sizeof(struct palette_color*));
 	for (i = 0; i < count; i++) {
 		read_color(fd, palette);
 	}

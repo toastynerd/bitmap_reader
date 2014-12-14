@@ -19,6 +19,7 @@ void push_pixel_8bit(struct pixel_map* map, struct pixel_8bit *pixel)
 int read_pixel_map_8bit(int fd, struct pixel_map* map, int count)
 {
 	int i;
+	map->data_store_8bit = malloc(count * sizeof(struct pxiel_8bit*));
 	for (i = 0; i < count; i++) {
 		read_pixel_8bit(fd, map);
 	}
@@ -34,3 +35,16 @@ int read_pixel_map(int fd, struct pixel_map* map, int width, int height, int siz
 		return read_pixel_map_8bit(fd, map, num_pixels);
 	return -1;
 }
+
+void print_8bit_color(struct pixel_8bit *pixel)
+{
+	printf("color: %02x ", pixel->color);
+}
+
+void print_8bit_pixel_map(struct pixel_map* map) {
+	int i;
+	printf("8-Bit Pixel Map: %d\n", map->size);
+	for (i = 0; i < map->size; i++) {
+		print_8bit_color((struct pixel_8bit*)map->data_store_8bit + i);
+	}
+};
