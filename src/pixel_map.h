@@ -18,3 +18,5 @@ int read_pixel_map(int fd, struct pixel_map* map, int width, int height, int siz
 
 void print_8bit_color(struct pixel_8bit *pixel);
 void print_8bit_pixel_map(struct pixel_map* map);
+
+void deallocate_8bit_pixel_map(struct pixel_map* map);

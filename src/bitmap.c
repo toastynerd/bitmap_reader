@@ -69,3 +69,11 @@ void print_bitmap_header(struct bitmap* bitmap)
 
 	return;
 }
+
+void deallocate_bitmap(struct bitmap* bitmap)
+{
+	deallocate_8bit_pixel_map(&bitmap->pixel_map);
+	deallocate_palette(&bitmap->palette);
+	return;
+}
+

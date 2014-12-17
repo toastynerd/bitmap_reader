@@ -48,3 +48,10 @@ void print_8bit_pixel_map(struct pixel_map* map) {
 		print_8bit_color((struct pixel_8bit*)map->data_store_8bit + i);
 	}
 };
+
+void deallocate_8bit_pixel_map(struct pixel_map* map)
+{
+	free(map->data_store_8bit);
+	map->data_store_8bit = NULL;
+	return;
+}
