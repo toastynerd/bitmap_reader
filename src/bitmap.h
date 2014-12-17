@@ -52,3 +52,5 @@ int read_bitmap(int fd, struct bitmap* bitmap);
 
 void print_bitmap_header(struct bitmap* bitmap);
 void print_v4bitmap(struct bitmap* bitmap);
+
+void deallocate_bitmap(struct bitmap* bitmap);

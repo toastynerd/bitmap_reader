@@ -49,3 +49,15 @@ void print_palette(struct palette* palette)
 	printf("\n");
 	return;
 }
+
+void deallocate_palette(struct palette* palette)
+{
+	int i;
+	for (i = 0; i < palette->size; i++) {
+		free(*(palette->data_store + i));
+		*(palette->data_store + i) = NULL;
+	}
+	free(palette->data_store);
+	palette->data_store = NULL;
+	return;
+}

@@ -63,5 +63,6 @@ int main(int argc, char **argv)
 	if (disp_pixels == 1)
 		print_8bit_pixel_map(&bitmap.pixel_map);
 
+	deallocate_bitmap(&bitmap);
 	return 0;
 }
