@@ -3,7 +3,6 @@
 int read_fileheader(int fd, struct bitmap* bitmap)
 {
 	int num_read = 0;
-	char buf[4];
 	num_read += read(fd, bitmap->fileheader.header_field, 2);
 	num_read += read(fd, (void*)&bitmap->fileheader.size, 4);
 	num_read += read(fd, (void*)&bitmap->fileheader.reserved1, 2);
@@ -46,6 +45,45 @@ int read_bitmap(int fd, struct bitmap *bitmap)
 	if (read_pixel_map(fd, &(bitmap->pixel_map), bitmap->infoheader.width, bitmap->infoheader.height, bitmap->fileheader.size - bitmap->fileheader.offset) != bitmap->infoheader.width * bitmap->infoheader.width)
 		return -1;
 	return 0;
+}
+
+int write_fileheader(int fd, struct bitmap *bitmap)
+{
+	int num_written = 0;
+	num_written += write(fd, bitmap->fileheader.header_field, 2);
+	num_written += write(fd, &bitmap->fileheader.size, 4);
+	num_written += write(fd, &bitmap->fileheader.reserved1, 2);
+	num_written += write(fd, &bitmap->fileheader.reserved2, 2);
+	num_written += write(fd, &bitmap->fileheader.offset, 4);
+
+	return num_written;
+}
+
+int write_infoheader(int fd, struct bitmap* bitmap)
+{
+	int num_written = 0;
+	num_written += write(fd, &bitmap->infoheader.size, 4);
+	num_written += write(fd, &bitmap->infoheader.width, 4);
+	num_written += write(fd, &bitmap->infoheader.height, 4);
+	num_written += write(fd, &bitmap->infoheader.color_planes, 4);
+	num_written += write(fd, &bitmap->infoheader.color_depth, 2);
+	num_written += write(fd, &bitmap->infoheader.compression, 4);
+	num_written += write(fd, &bitmap->infoheader.image_size, 4);
+	num_written += write(fd, &bitmap->infoheader.horizontal_ppm, 4);
+	num_written += write(fd, &bitmap->infoheader.verticle_ppm, 4);
+	num_written += write(fd, &bitmap->infoheader.color_planes, 4);
+	num_written += write(fd, &bitmap->infoheader.important_colors, 4);
+
+	return num_written;
+}
+
+int write_bitmap(int fd, struct bitmap* bitmap)
+{
+	int num_written = 0;
+	num_written += write_fileheader(fd, bitmap);
+	num_written += write_infoheader(fd, bitmap);
+
+	return num_written;
 }
 
 void print_bitmap_header(struct bitmap* bitmap)

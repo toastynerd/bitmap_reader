@@ -50,6 +50,10 @@ int read_infoheader(int fd, struct bitmap* bitmap);
 int read_v4infoheader(int fd, struct bitmap* bitmap);
 int read_bitmap(int fd, struct bitmap* bitmap);
 
+int write_fileheader(int fd, struct bitmap* bitmap);
+int write_infoheader(int fd, struct bitmap* bitmap);
+int write_bitmap(int fd, struct bitmap* bitmap);
+
 void print_bitmap_header(struct bitmap* bitmap);
 void print_v4bitmap(struct bitmap* bitmap);
 
