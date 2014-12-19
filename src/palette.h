@@ -19,6 +19,9 @@ int read_color(int fd, struct palette* palette);
 void palette_push_color(struct palette* palette, struct palette_color* color);
 int read_palette(int fd, struct palette* palette, int count);
 
+int write_color(int fd, struct palette_color* color);
+int write_palette(int fd, struct palette* palette);
+
 void print_color(struct palette_color* color);
 void print_palette(struct palette* palette);
 

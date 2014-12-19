@@ -34,6 +34,27 @@ int read_palette(int fd, struct palette* palette, int count)
 	return i;
 }
 
+int write_color(int fd, struct palette_color* color)
+{
+	int num_write = 0;
+	num_write += write(fd, &color->red, 1);
+	num_write += write(fd, &color->green, 1);
+	num_write += write(fd, &color->blue, 1);
+	num_write += write(fd, &color->alpha, 1);
+	return num_write;
+}
+
+int write_palette(int fd, struct palette* palette)
+{
+	int i;
+	int num_write = 0;
+	for (i = 0; i < palette->size; i++) {
+		num_write += write_color(fd, (struct palette_color*)*(palette->data_store + i));
+	}
+
+	return num_write;
+}
+
 void print_color(struct palette_color* color) {
 	printf("red: %02x green: %02x blue: %02x alpha: %02x", color->red, color->green, color->blue, color->alpha);
 	return;
